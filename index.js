@@ -9,13 +9,16 @@ app.use(cors());
 app.use(bodyParser.json());
 app.use(bodyParser.urlencoded({extended: false}));
 
+let smtp_logon = process.env.SMTP_LOGIN || '---'
+let smtp_password = process.env.SMTP_PASSWORD || '---'
+
 let transporter = nodemailer.createTransport({
     host: 'smtp.gmail.com',
     port: 465,
     secure: true,
     auth: {
-        user: 'efimovichartem27@gmail.com',
-        pass: '27011990ArtemEf',
+        user: smtp_logon,
+        pass: smtp_password,
     },
 });
 
@@ -42,8 +45,10 @@ app.post('/sendMessage', async function (req, res) {
     res.send('Ok')
 });
 
+let port = process.env.PORT || 8080
 
-app.listen(3010, function () {
+
+app.listen(port, function () {
     console.log("sdfsdfsdfsdfsd")
 })
 
