@@ -7,7 +7,7 @@
   ],
   "routes": [
     {
-      "src": "/(.*)",
+      "src": "/sendMessage",
       "dest": "index.js"
     }
   ]
