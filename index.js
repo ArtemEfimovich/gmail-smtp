@@ -5,16 +5,18 @@ const bodyParser = require("body-parser")
 
 const app = express();
 
-app.get('/app/', function(req, res){
-    res.send("Hello from the root application URL");
-});
-app.get('/app/test/', function(req, res){
-    res.send("Hello from the 'test' URL");
-});
-
 app.use(cors());
 app.use(bodyParser.json());
 app.use(bodyParser.urlencoded({extended: false}));
+
+
+app.get('/app/', function (req, res) {
+    res.send("Hello from the root application URL");
+});
+app.get('/app/test/', function (req, res) {
+    res.send("Hello from the 'test' URL");
+});
+
 
 let smtp_login = process.env.SMTP_LOGIN || '---'
 let smtp_password = process.env.SMTP_PASSWORD || '---'
@@ -25,12 +27,12 @@ let transporter = nodemailer.createTransport({
     secure: true,
     auth: {
         user: smtp_login,
-        pass:  smtp_password,
+        pass: smtp_password,
     },
 });
 
 
-app.post('/sendMessage', async function (req, res) {
+app.post('/message', async function (req, res) {
 
     let {message, name, email} = req.body.data
 
@@ -48,7 +50,8 @@ app.post('/sendMessage', async function (req, res) {
     <div>
         ${message}
     </div>
-`,});
+`,
+    });
     res.send('Ok')
 });
 
